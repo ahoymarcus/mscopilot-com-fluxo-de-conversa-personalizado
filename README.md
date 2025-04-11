@@ -1,7 +1,6 @@
 # Criando um Copiloto com Fluxo de Conversa Personalizado | Microsoft Copilot Studio 
 
-
- objetivo desse artigo é o de tratar de algumas questões específicas para o Copilot Studio da Microsoft, especificamente questões relacionadas à construção agentes com fluxos de conversas personalizadas, sendo assim, também será tratado de alguns pontos importantes para a tarefa da personalização dos agentes, como por exemplo, o do uso dos "tópicos".
+O objetivo desse artigo é o de tratar de algumas questões específicas para o Copilot Studio da Microsoft, especificamente questões relacionadas à construção agentes com fluxos de conversas personalizadas, sendo assim, também será tratado de alguns pontos importantes para a tarefa da personalização dos agentes, como por exemplo, o do uso dos "tópicos".
 
 
 Ademais, esse artigo também pretende falar um pouco sobre a integração e o uso de IA Generativa aos fluxos de conversas criados e nas personalizações feitas.
@@ -52,15 +51,16 @@ Ademais, observe ainda, que no tocante aos **tópicos de sistema**, que esses t�
 
 Abaixo temos as definição da documentação da Microsoft para os **tópicos de sistemas**:
 
-| **Tópico do sistema** |	**Description** |   
-| Início da conversa |	Dependendo do cliente do agente, este tópico é iniciado proativamente para iniciar a conversa com o usuário. O agente pode cumprimentar os usuários com mensagens, mesmo antes que os usuários comecem a inserir qualquer entrada. |    
-| Fim da conversa    |	Este tópico deve ser posicionado no final da conversa com um agente, para que o usuário possa confirmar se sua consulta foi abordada ou não, e preencher uma pesquisa de satisfação. Este tópico é importante para medir o desempenho de um agente e atuar nele. Quando esse tópico é alcançado, presume-se que o resultado da sessão foi resolvido, a menos que o usuário não confirme explicitamente a resolução. |     
-| Escalonar          |	O tópico Escalonar é usado para transferir a conversa para um sistema externo, geralmente para um agente ativo (quando configurado, por exemplo, para o Omnicanal para Customer Service do Dynamics 365). Quando esse tópico é alcançado, o resultado da sessão é escalonado. |     
-| Fallback           | Este tópico é disparado quando o agente não consegue entender a consulta do usuário e a consulta não pode ser associada à confiança com nenhum tópico existente. É útil ter uma estratégia para capturar essas exceções e tratá-las de maneira elegante (com mais fontes de dados ou por meio de um caminho de escalonamento). |     
-| Vários Tópicos Correspondentes (também conhecido como "você quis dizer") | Esse tópico é disparado quando vários tópicos podem abordar a entrada do usuário e o agente não tem confiança suficiente para disparar um sobre os outros. Quando esse tipo de tópico é acionado, o usuário recebe uma lista de possíveis tópicos correspondentes e pode escolher o mais adequado. |      
-| Se Houver Erro     |	O tópico Se Houver Erro informa ao usuário que ocorreu um erro. A mensagem inclui um código de erro, o ID da conversa e o carimbo de data/hora do erro, que pode ser usado posteriormente para depuração. Você pode personalizar este tópico para alterar a forma como ele apresenta erros aos usuários e o que deve acontecer quando ocorrer um erro. |      
-| Redefinir conversa |	Este tópico redefine a conversa limpando todos os valores de variável e forçando o agente a usar o conteúdo publicado mais recente. Ele só é acionado quando redirecionado, que é o comportamento padrão com o tópico Recomeçar. |      
-| Entre              |	Este tópico solicita aos usuários que entrem quando a autenticação do usuário estiver habilitada. Ele é acionado no início da conversa quando os usuários são obrigados a entrar ou quando a conversa chega a um nó que usa variáveis de autenticação. |      
+| **Tópico do sistema** |	**Description** | 
+| --------------------- | ----------------- |
+| Início da conversa |	Dependendo do cliente do agente, este tópico é iniciado proativamente para iniciar a conversa com o usuário. O agente pode cumprimentar os usuários com mensagens, mesmo antes que os usuários comecem a inserir qualquer entrada. |  
+| Fim da conversa    |	Este tópico deve ser posicionado no final da conversa com um agente, para que o usuário possa confirmar se sua consulta foi abordada ou não, e preencher uma pesquisa de satisfação. Este tópico é importante para medir o desempenho de um agente e atuar nele. Quando esse tópico é alcançado, presume-se que o resultado da sessão foi resolvido, a menos que o usuário não confirme explicitamente a resolução. | 
+| Escalonar          |	O tópico Escalonar é usado para transferir a conversa para um sistema externo, geralmente para um agente ativo (quando configurado, por exemplo, para o Omnicanal para Customer Service do Dynamics 365). Quando esse tópico é alcançado, o resultado da sessão é escalonado. |
+| Fallback           | Este tópico é disparado quando o agente não consegue entender a consulta do usuário e a consulta não pode ser associada à confiança com nenhum tópico existente. É útil ter uma estratégia para capturar essas exceções e tratá-las de maneira elegante (com mais fontes de dados ou por meio de um caminho de escalonamento). |
+| Vários Tópicos Correspondentes (também conhecido como "você quis dizer") | Esse tópico é disparado quando vários tópicos podem abordar a entrada do usuário e o agente não tem confiança suficiente para disparar um sobre os outros. Quando esse tipo de tópico é acionado, o usuário recebe uma lista de possíveis tópicos correspondentes e pode escolher o mais adequado. |
+| Se Houver Erro     |	O tópico Se Houver Erro informa ao usuário que ocorreu um erro. A mensagem inclui um código de erro, o ID da conversa e o carimbo de data/hora do erro, que pode ser usado posteriormente para depuração. Você pode personalizar este tópico para alterar a forma como ele apresenta erros aos usuários e o que deve acontecer quando ocorrer um erro. |
+| Redefinir conversa |	Este tópico redefine a conversa limpando todos os valores de variável e forçando o agente a usar o conteúdo publicado mais recente. Ele só é acionado quando redirecionado, que é o comportamento padrão com o tópico Recomeçar. |
+| Entre              |	Este tópico solicita aos usuários que entrem quando a autenticação do usuário estiver habilitada. Ele é acionado no início da conversa quando os usuários são obrigados a entrar ou quando a conversa chega a um nó que usa variáveis de autenticação. |
 
 
 <br>
@@ -175,11 +175,11 @@ Assim, uma forma de aprimorar a execução das ações ou das pesquisaspor parte
 Ainda segundo a documentação, as **instruções baseadas em conversações** poderiam ser feitas adicionando-se informações específicas junto ao terminal para a chamada do módulo generativo de IA, sendo que a documentação apontaria três tipos de informações nesse sentido:
 
 1. **Restrições**: as restrições seriam instruções para o módulo generativo de IA que definiriam **limites** ou **restrições** para o conteúdo sendo retornado para o usuário.
-  - Exemplo: "Responda apenas a requerimentos que peçam informação sobre educação, legislação, bem estar, saúde e benefícios dirigidos a funcionários." 
+    - Exemplo: "Responda apenas a requerimentos que peçam informação sobre educação, legislação, bem estar, saúde e benefícios dirigidos a funcionários." 
 2. **Formato de Resposta**: já o formato de resposta tem o intuito de prover instruções para o módulo generativo de IA sendo chamado de como formatar para o usuário a resposta sendo entregue ao usuário.
-  - Exemplo: "Monte a responda provendo quais são os tipos de benefícios esperados, juntamente com detalhamento. Para requisitos de saúde traga comparações disponíveis aos usuários, apresentando isto em formato tabular. Responda em negrito e sublinhando as fontes." 
+    - Exemplo: "Monte a responda provendo quais são os tipos de benefícios esperados, juntamente com detalhamento. Para requisitos de saúde traga comparações disponíveis aos usuários, apresentando isto em formato tabular. Responda em negrito e sublinhando as fontes." 
 3. **Orientação**: finalmente, pelas orientações o desenvolvedor poderia passar insights variados, seja na forma como o módulo generativo deveria tratar os dados sendo utilizados para a resposta, bem como estabelecer condições gerais que também deveriam ser seguidas.
-  - Exemplo: "Procurar apenas informações relativas a países relevantes para o empregado que busca as informações. Use o conhecimento do FAQ apenas se a questão não é relevante a consultas realizadas ou a conbranças feitas. Crie apenas tickets para o tópico de criação de tickets, pois para solução de problemas, deve ser usado o tópico específico de soluções. Não responsder questões que digam respeito ao que trata o tópico criando atendimentos manuais."
+    - Exemplo: "Procurar apenas informações relativas a países relevantes para o empregado que busca as informações. Use o conhecimento do FAQ apenas se a questão não é relevante a consultas realizadas ou a conbranças feitas. Crie apenas tickets para o tópico de criação de tickets, pois para solução de problemas, deve ser usado o tópico específico de soluções. Não responsder questões que digam respeito ao que trata o tópico criando atendimentos manuais."
 
 
 > [!TIP]

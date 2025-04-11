@@ -1,4 +1,4 @@
-# Criando um Copiloto com Fluxo de Conversa Personalizado no Microsoft Copilot Studio 
+# Criando um Copiloto com Fluxo de Conversa Personalizado | Microsoft Copilot Studio 
 
 
  objetivo desse artigo é o de tratar de algumas questões específicas para o Copilot Studio da Microsoft, especificamente questões relacionadas à construção agentes com fluxos de conversas personalizadas, sendo assim, também será tratado de alguns pontos importantes para a tarefa da personalização dos agentes, como por exemplo, o do uso dos "tópicos".
@@ -52,15 +52,15 @@ Ademais, observe ainda, que no tocante aos **tópicos de sistema**, que esses t�
 
 Abaixo temos as definição da documentação da Microsoft para os **tópicos de sistemas**:
 
-| **Tópico do sistema** |	**Description** |
-| Início da conversa |	Dependendo do cliente do agente, este tópico é iniciado proativamente para iniciar a conversa com o usuário. O agente pode cumprimentar os usuários com mensagens, mesmo antes que os usuários comecem a inserir qualquer entrada. |
-| Fim da conversa    |	Este tópico deve ser posicionado no final da conversa com um agente, para que o usuário possa confirmar se sua consulta foi abordada ou não, e preencher uma pesquisa de satisfação. Este tópico é importante para medir o desempenho de um agente e atuar nele. Quando esse tópico é alcançado, presume-se que o resultado da sessão foi resolvido, a menos que o usuário não confirme explicitamente a resolução. |
-| Escalonar          |	O tópico Escalonar é usado para transferir a conversa para um sistema externo, geralmente para um agente ativo (quando configurado, por exemplo, para o Omnicanal para Customer Service do Dynamics 365). Quando esse tópico é alcançado, o resultado da sessão é escalonado. | 
-| Fallback           | Este tópico é disparado quando o agente não consegue entender a consulta do usuário e a consulta não pode ser associada à confiança com nenhum tópico existente. É útil ter uma estratégia para capturar essas exceções e tratá-las de maneira elegante (com mais fontes de dados ou por meio de um caminho de escalonamento). |
-| Vários Tópicos Correspondentes (também conhecido como "você quis dizer") | Esse tópico é disparado quando vários tópicos podem abordar a entrada do usuário e o agente não tem confiança suficiente para disparar um sobre os outros. Quando esse tipo de tópico é acionado, o usuário recebe uma lista de possíveis tópicos correspondentes e pode escolher o mais adequado. |
-| Se Houver Erro     |	O tópico Se Houver Erro informa ao usuário que ocorreu um erro. A mensagem inclui um código de erro, o ID da conversa e o carimbo de data/hora do erro, que pode ser usado posteriormente para depuração. Você pode personalizar este tópico para alterar a forma como ele apresenta erros aos usuários e o que deve acontecer quando ocorrer um erro. |
-| Redefinir conversa |	Este tópico redefine a conversa limpando todos os valores de variável e forçando o agente a usar o conteúdo publicado mais recente. Ele só é acionado quando redirecionado, que é o comportamento padrão com o tópico Recomeçar. |
-| Entre              |	Este tópico solicita aos usuários que entrem quando a autenticação do usuário estiver habilitada. Ele é acionado no início da conversa quando os usuários são obrigados a entrar ou quando a conversa chega a um nó que usa variáveis de autenticação. |
+| **Tópico do sistema** |	**Description** |   
+| Início da conversa |	Dependendo do cliente do agente, este tópico é iniciado proativamente para iniciar a conversa com o usuário. O agente pode cumprimentar os usuários com mensagens, mesmo antes que os usuários comecem a inserir qualquer entrada. |    
+| Fim da conversa    |	Este tópico deve ser posicionado no final da conversa com um agente, para que o usuário possa confirmar se sua consulta foi abordada ou não, e preencher uma pesquisa de satisfação. Este tópico é importante para medir o desempenho de um agente e atuar nele. Quando esse tópico é alcançado, presume-se que o resultado da sessão foi resolvido, a menos que o usuário não confirme explicitamente a resolução. |     
+| Escalonar          |	O tópico Escalonar é usado para transferir a conversa para um sistema externo, geralmente para um agente ativo (quando configurado, por exemplo, para o Omnicanal para Customer Service do Dynamics 365). Quando esse tópico é alcançado, o resultado da sessão é escalonado. |     
+| Fallback           | Este tópico é disparado quando o agente não consegue entender a consulta do usuário e a consulta não pode ser associada à confiança com nenhum tópico existente. É útil ter uma estratégia para capturar essas exceções e tratá-las de maneira elegante (com mais fontes de dados ou por meio de um caminho de escalonamento). |     
+| Vários Tópicos Correspondentes (também conhecido como "você quis dizer") | Esse tópico é disparado quando vários tópicos podem abordar a entrada do usuário e o agente não tem confiança suficiente para disparar um sobre os outros. Quando esse tipo de tópico é acionado, o usuário recebe uma lista de possíveis tópicos correspondentes e pode escolher o mais adequado. |      
+| Se Houver Erro     |	O tópico Se Houver Erro informa ao usuário que ocorreu um erro. A mensagem inclui um código de erro, o ID da conversa e o carimbo de data/hora do erro, que pode ser usado posteriormente para depuração. Você pode personalizar este tópico para alterar a forma como ele apresenta erros aos usuários e o que deve acontecer quando ocorrer um erro. |      
+| Redefinir conversa |	Este tópico redefine a conversa limpando todos os valores de variável e forçando o agente a usar o conteúdo publicado mais recente. Ele só é acionado quando redirecionado, que é o comportamento padrão com o tópico Recomeçar. |      
+| Entre              |	Este tópico solicita aos usuários que entrem quando a autenticação do usuário estiver habilitada. Ele é acionado no início da conversa quando os usuários são obrigados a entrar ou quando a conversa chega a um nó que usa variáveis de autenticação. |      
 
 
 <br>
@@ -149,6 +149,56 @@ Para tanto, a ferramenta do Copilot Studio possuiria duas importantes estrurus c
 
 Finalmente, a documentação termina esse ponto sobre o **tópico de fallback** explicando que uma maneira prática para gerenciar de maneira adequadas esses eventos seia de modelar o fluxo de conversas de modo que pudesse haver um acompanhamento não apenas do que tem sido conversado pelo usuário com o agente, mas também de acompanhar a próprias palavras, termos e ideias trazidas pelos usuários durante a conversa, usando essas frases e termos das conversas para ajudar a dirigir e enriquecer os gatilhos a serem disparadosde novos eventos.   
  
+
+<br>
+
+## Algumas Orientações para o Uso de Instruções no Modo Generativo de IA
+
+Primeiramente, é essencial apontar para a necessidade de se modelar todo o fluxo da conversa e a personalização dos tópicos, para que seja feito todo o tratamento sobre as instruções que devem alcançar o módulo de respostas generativas de IA.
+
+
+<br>
+
+### Estabelecendo Contexto para as Instruções
+
+
+Assim, uma forma de aprimorar a execução das ações ou das pesquisaspor parte dos agentes seria o de trazer os dados do negócio e tratá-los de modo que possam atender as  especificações asperadas pela gestão do serviço. Nesse sentido a documentação estabelece que uma forma de se definir esse contexto no fluxo das conversas seria a de atualizar as fontes de conhecimento para o agente:
+
+> "Por exemplo, se você der uma instrução para que seu agente pesquise as Perguntas frequentes de um site, o agente não poderá seguir essa instrução, a menos que você adicione as Perguntas frequentes do site como fonte de conhecimento. Certifique-se de que todas as instruções fornecidas ao agente estejam fundamentadas nas ações e no conhecimento que você configurou para o agente."
+> [Orientação para o uso de instruções no modo generativo](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/guidance/generative-mode-guidance)
+
+
+<br>
+
+### Instruções Baseadas em Conversações
+
+Ainda segundo a documentação, as **instruções baseadas em conversações** poderiam ser feitas adicionando-se informações específicas junto ao terminal para a chamada do módulo generativo de IA, sendo que a documentação apontaria três tipos de informações nesse sentido:
+
+1. **Restrições**: as restrições seriam instruções para o módulo generativo de IA que definiriam **limites** ou **restrições** para o conteúdo sendo retornado para o usuário.
+  - Exemplo: "Responda apenas a requerimentos que peçam informação sobre educação, legislação, bem estar, saúde e benefícios dirigidos a funcionários." 
+2. **Formato de Resposta**: já o formato de resposta tem o intuito de prover instruções para o módulo generativo de IA sendo chamado de como formatar para o usuário a resposta sendo entregue ao usuário.
+  - Exemplo: "Monte a responda provendo quais são os tipos de benefícios esperados, juntamente com detalhamento. Para requisitos de saúde traga comparações disponíveis aos usuários, apresentando isto em formato tabular. Responda em negrito e sublinhando as fontes." 
+3. **Orientação**: finalmente, pelas orientações o desenvolvedor poderia passar insights variados, seja na forma como o módulo generativo deveria tratar os dados sendo utilizados para a resposta, bem como estabelecer condições gerais que também deveriam ser seguidas.
+  - Exemplo: "Procurar apenas informações relativas a países relevantes para o empregado que busca as informações. Use o conhecimento do FAQ apenas se a questão não é relevante a consultas realizadas ou a conbranças feitas. Crie apenas tickets para o tópico de criação de tickets, pois para solução de problemas, deve ser usado o tópico específico de soluções. Não responsder questões que digam respeito ao que trata o tópico criando atendimentos manuais."
+
+
+> [!TIP]
+> Pode ser usada a linguagem de marcação Markdown para não apenas melhorar a legibilidade das instruções passadas para o módulo generativo de IA, como também por gerar encadeamente de prioridades, por meio do uso da listas e de listas ordenadas. 
+
+
+<br>
+
+### Recursos Adicionais
+
+> [!NOTE]
+> [Orquestrar o comportamento do agente com a IA generativa](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/advanced-generative-actions)
+
+> [!NOTE]
+> [Visão geral das fontes de conhecimento](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/knowledge-copilot-studio)
+
+> [!NOTE]
+> [Usar ações com agentes personalizados (versão preliminar)](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/advanced-plugin-actions)
+
 
 
 <br>

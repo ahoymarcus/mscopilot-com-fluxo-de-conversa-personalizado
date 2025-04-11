@@ -1,12 +1,16 @@
-# Criando um Copiloto com Fluxo de Conversa Personalizado no Microsoft Copilot Studio | Microsoft AI for Tech - Copilot Studio
+# Criando um Copiloto com Fluxo de Conversa Personalizado no Microsoft Copilot Studio 
 
-O objetivo desse artigo é o de tratar de algumas questões específicas para o Copilot Studio da Microsoft, especificamente questões relacionadas à construção agentes com fluxos de conversas personalizadas, sendo assim, também será tratado de alguns pontos importantes para a tarefa da personalização dos agentes, como por exemplo, o do uso dos "tópicos".
+
+ objetivo desse artigo é o de tratar de algumas questões específicas para o Copilot Studio da Microsoft, especificamente questões relacionadas à construção agentes com fluxos de conversas personalizadas, sendo assim, também será tratado de alguns pontos importantes para a tarefa da personalização dos agentes, como por exemplo, o do uso dos "tópicos".
 
 
 Ademais, esse artigo também pretende falar um pouco sobre a integração e o uso de IA Generativa aos fluxos de conversas criados e nas personalizações feitas.
 
 
-Recordamos que, de acordo com a documentação do [Microsoft.learn](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/environments-first-run-experience) e do site [Documentação do Copilot Studio](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/), o Copilot Studio é uma ferramenta gráfica em low-codo para criar agentes de IA:
+Este artigo é parte do curso Microsoft AI for Tech - Copilot Studio da plataforma DIO.me.
+
+
+Recordamos ainda, que de acordo com a documentação do [Microsoft.learn](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/environments-first-run-experience) e do site [Documentação do Copilot Studio](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/), o Copilot Studio é uma ferramenta gráfica em low-codo para criar agentes de IA:
 
 > "uma ferramenta gráfica, low-code para criar um agente, incluindo a construção de automação com o Power Automate, e estender um Microsoft 365 Copilot com seus próprios dados e cenários corporativos".
 >  [Microsoft.Learn](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/fundamentals-what-is-copilot-studio)
@@ -14,6 +18,8 @@ Recordamos que, de acordo com a documentação do [Microsoft.learn](https://lear
 
 Assim, além de possuir uma grande integração com a estrutura de aplicações e de nuvem da Microsoft, o Copilot Studio também tem grande flexibilidade no trabalho de alcançar e de se conectar com diversas bases de dados, inclusive em se falando de bases de dados personalizados.
 
+
+<br>
 
 ## Tópicos no Copilot Studio
 
@@ -28,8 +34,8 @@ De modo geral, haveria duas formas básicas para a criação de um tópico, que 
 
 Ainda em termos gerais, os tópicos pussuiriam duas estruturas com as quais ele trabalharia para alcançar aquele objetivo de limitar e descriver os fluxos de conversas de um agente:
 
-1. Frases de Gatilho: estas estruturas funcionam como elementos condicionantes capazes de modificar o fluxo de desenvolvimento de uma conversa. 
-2. Nós de Conversa: já estas estruturas seriam justamente os pontos para os quais os gatilhos convergiriam ao modificar o fluxo das conversas de um lado a outro.
+1. **Frases de Gatilho**: estas estruturas funcionam como elementos condicionantes capazes de modificar o fluxo de desenvolvimento de uma conversa. 
+2. **Nós de Conversa**: já estas estruturas seriam justamente os pontos para os quais os gatilhos convergiriam ao modificar o fluxo das conversas de um lado a outro.
 
 
 Assim, com o intuito de simplificar o processo incial para a construção de um agente, a ferramenta Copilot Studio já possui em sua estrutura básica uma série de tópicos padrões, que servem para ajudar e para guiar o trabalho de desenvolvimento da criação dos agentes.
@@ -45,7 +51,8 @@ Ademais, observe ainda, que no tocante aos **tópicos de sistema**, que esses t�
 
 
 Abaixo temos as definição da documentação da Microsoft para os **tópicos de sistemas**:
-|  Tópico do sistema |	Description |
+
+| **Tópico do sistema** |	**Description** |
 | Início da conversa |	Dependendo do cliente do agente, este tópico é iniciado proativamente para iniciar a conversa com o usuário. O agente pode cumprimentar os usuários com mensagens, mesmo antes que os usuários comecem a inserir qualquer entrada. |
 | Fim da conversa    |	Este tópico deve ser posicionado no final da conversa com um agente, para que o usuário possa confirmar se sua consulta foi abordada ou não, e preencher uma pesquisa de satisfação. Este tópico é importante para medir o desempenho de um agente e atuar nele. Quando esse tópico é alcançado, presume-se que o resultado da sessão foi resolvido, a menos que o usuário não confirme explicitamente a resolução. |
 | Escalonar          |	O tópico Escalonar é usado para transferir a conversa para um sistema externo, geralmente para um agente ativo (quando configurado, por exemplo, para o Omnicanal para Customer Service do Dynamics 365). Quando esse tópico é alcançado, o resultado da sessão é escalonado. | 
@@ -56,9 +63,11 @@ Abaixo temos as definição da documentação da Microsoft para os **tópicos de
 | Entre              |	Este tópico solicita aos usuários que entrem quando a autenticação do usuário estiver habilitada. Ele é acionado no início da conversa quando os usuários são obrigados a entrar ou quando a conversa chega a um nó que usa variáveis de autenticação. |
 
 
-##  Gestão de Tópicos em uma Conversa
+<br>
 
-Veja que, segundo a documentação do [Microsoft Learn](), a seleção dos tópicos e o seu encadeamento em uma conversa partiria da relação da interação dos agentes com os usuários, bem como, ao seguir de perto alugmas daquelas padronizações existentes na própria ferramenta do Copilot Studio, como, por exemplo, com relação a algumas padronizações estabelecidas pelo uso dos tópicos de sistema e de como eles administrariam os eventos das conversas. 
+###  Gestão de Tópicos em uma Conversa
+
+Veja que, segundo a documentação do [Microsoft Learn](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/guidance/triggering-topics), a seleção dos tópicos e o seu encadeamento em uma conversa partiria da relação da interação dos agentes com os usuários, bem como, ao seguir de perto alugmas daquelas padronizações existentes na própria ferramenta do Copilot Studio, como, por exemplo, com relação a algumas padronizações estabelecidas pelo uso dos tópicos de sistema e de como eles administrariam os eventos das conversas. 
 
 
 Assim, inicialmente, um "gatilho" básico para a definição de um tópico poderia ser o de se fazer uma consulta ao usuário a partir do prompt esperando ou perguntando explicitamente sobre possíveis tópicos que poderiam ser servidos ao usuário por meio do agente. 
@@ -68,23 +77,77 @@ Ademais, uma outra forma corrente de intercalação entre os tópicos poderia se
 
 
 
+<br>
+
+### Como Estruturar os Tópicos de uma Conversa 
+
+Também segundo a documentação do [Microsoft Learn](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/guidance/defining-chatbot-topics), a forma como se deve encadear os fluxos de conversa de um agente estariam intimamente ligados ao modelo de negócio e à forma como se pretende desenvolver o processo de automação de um serviço que é disponibilizado para o usuário. 
 
 
+Nesse sentido:
+
+> "Definir os melhores tópicos para seu agente requer uma compreensão das perguntas que os usuários podem fazer ou das tarefas que eles tentam realizar, e o tipo de informação e automação que você precisa fornecer. Por exemplo, um agente de varejo pode começar pedindo ao usuário que escolha entre quatro coisas que deseja fazer: encontrar uma loja, fazer um pedido, verificar o status de um pedido ou devolver um produto comprado. A resposta pode levá-los a um dos quatro tópicos, cada um com seu próprio diálogo de tópico."
+> [Definir tópicos do agente](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/guidance/defining-chatbot-topics)
+ 
+
+Todavia, a documentação propõem três categorias básicas às quais os serviços prestados poderiam ser encaixar:
+
+1. **Serviço de Informação**
+2. **Serviço de Realização ou Conclusão de Rarefas**
+3. **Serviço de Solução de Problemas**
 
 
+<br>
+
+#### Processo de Design do Tópico
+
+Em termos gerais, para o processo de definição do design dos tópicos, a documentação propõe alguns passo, entre eles:
+
+1. **Identificar o Tópico**: aqui então, entra justamente o propósito geral dos serviços para os quais a organização está abrindo espaço para os seus usuários, lembrando apenas que, para a construção dos tópicos deve ser levando em conta também aspectos formas dos próprios usuários, como por exemplo, o ponto de vista do usuário, idade, comunidades a que pertence, nível de conhecimento técnico, etc.
+2. **Listar Todos os Cenários Possíveis**: assim, é preciso lembrar-se que juntamente com a descrição dos cenários é preciso pensar em uma experiência completa e útil ao usuário, trazendo as informações necessárias, resoluções de tarefaz, a solução de problemas e tudo mais quanto possa ser considerado importante para construir uma boa experiência para o usuário.
+3. **Projetar uma Árvore de Conversa de Alto Nível**: esta etapa, que poderia também ser vista como uma extensão da anterior, visa chamar a atenção para a importância de se construir uum modelo de agente simples e claro, ou seja, de uma modelo capaz de juntar ao serviço que se propõe, gerar satisfação ao oferecer ao usuário um fluxo agradável e capaz de ganhar a apreciação do usurário. Para tanto, o desenvolvedor poderia pensar aqui em uma série de estruturas e limitações capazes de melhorar a forma do fluxo das conversas: limite de perguntas, limites nos redirecionamentos de tópicos, limitar a quatidade de informação e manter limpa a estrutura de conversa com o cliente, criar hierarquia entre os encadeamentos para evitar que o cliente tenha necessariamente de cobrir todas as etapas, todas as vezes que ele recebe um atendimento, etc. 
+4. Validação e Melhora Contínua: assim, é preciso testar se o propósito do serviço fora atendido e se ele permanece sempre atualizado com relação às necessidades do modelo de negócio e também do próprio cliente.
 
 
+Algumas dicas passadas pela documentação na hora de se construir a experiẽncia do usuário:
+
+> [!TIP]
+> "Não apenas replique o que seu site ou aplicativo já pode fazer, seus clientes provavelmente estão familiarizados com seu site ou aplicativo e podem realizar tarefas comuns sozinhos sem precisar interagir com um agente."
+
+> [!TIP]
+> "Concentre-se em criar tópicos para problemas ou cenários que geram um grande volume de chats ou chamadas primeiro. Trabalhe por um período maior em outros problemas menos críticos."
+
+> [!TIP]
+> "Apresente o design mais completo possível e considere todos os possíveis cenários em que os usuários possam solicitar ou precisar de ajuda."
+
+- **Fonte**: [Microsoft Learn](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/guidance/defining-chatbot-topics)
 
 
+<br>
+
+#### Uso do Tópico de Fallback
+
+Lembramos, aqui, daquilo que fora tratado anteriormente acerca da forma como o Copilot Studio gerencia a estrutura e os fluxos de encadeamento das conversas dos agentes e de como existem alguns eventos que são padronizado dentro da ferramenta para facilitar a tarefa de desenvolvimento dos agentes.
 
 
+Assim, um exemplo interessante de como trabalhar essa padronização do Copilot Studio poderia ser ao se falar dos **tópicos de sistema**, mais especificamente do tópico de sistema que diz respeito ao **"Fallback"**, uma vez que este tópico além de poder trazer uma certa complexidade natural, deve ser também bastante recorrente durante o desenvovimento das conversas do usuário com o agente.
 
 
+No que diz respeito à documentação, o envento de **Fallback** seria definido assim:
+
+> "O tópico de Fallback é disparado quando o Copilot Studio não entende um enunciado do usuário e não tem confiança suficiente para disparar um dos tópicos existentes."
+> [Usar o tópico Fallback](https://learn.microsoft.com/pt-br/microsoft-copilot-studio/guidance/fallback-topic)
+ 
+
+Nesse sentido, uma importante aspecto para o uso do fallback seria a de estruturar o agente de forma que ele pudesse alcançar a "personalidade" necessária para permanecer como uma boa experiência ao usuário. Ou seja, que tão importante quanto é definir de maneira clara, precisa e agradável o encadeamento da conversa do agente com o usuário, também é importante fazer o mesmo durante esses períodos de "questão" do encadeamento do fluxo de conversa, para evitar que o usuário possa se sentir frustado ou desrespeitado, etc.
 
 
+Para tanto, a ferramenta do Copilot Studio possuiria duas importantes estrurus capazes de auxiliar o desenvolvedor ao modelar e ao definir a forma dessas interações em eventos de fallback:
+1. **Serviço Interno Cognitivo da Azure para Linguagem**: aqui a ferramenta traz importantes elementos capazes de gerenciar os vários "tons" da conversação, como "amigáveis", "inteligêntes", os quais inclusive podem ser também customizados pelo desenvolvedor através daqueles tópicos personalizados.
+2. **Integração com Modelos de IA Generativa**: por meio de **engenharia de prompts** também seria possível alimentar o modelo básico do agente com regra e dados para gerar respostas mais específicas, atualizadas e mais abalizadas sobre tópicos variados. 
 
 
-
+Finalmente, a documentação termina esse ponto sobre o **tópico de fallback** explicando que uma maneira prática para gerenciar de maneira adequadas esses eventos seia de modelar o fluxo de conversas de modo que pudesse haver um acompanhamento não apenas do que tem sido conversado pelo usuário com o agente, mas também de acompanhar a próprias palavras, termos e ideias trazidas pelos usuários durante a conversa, usando essas frases e termos das conversas para ajudar a dirigir e enriquecer os gatilhos a serem disparadosde novos eventos.   
  
 
 
